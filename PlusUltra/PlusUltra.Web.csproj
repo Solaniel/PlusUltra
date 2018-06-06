@@ -212,6 +212,16 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlusUltra.DataAccess\PlusUltra.DataAccess.csproj">
+      <Project>{a234357e-90d0-4b44-9e27-fd8cd4c88263}</Project>
+      <Name>PlusUltra.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlusUltraDB\PlusUltra.DB.csproj">
+      <Project>{39976fc6-cd8a-42fc-b481-fda520cbfe08}</Project>
+      <Name>PlusUltra.DB</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

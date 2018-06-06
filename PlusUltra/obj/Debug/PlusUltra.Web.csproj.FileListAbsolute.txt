@@ -91,3 +91,9 @@ C:\Users\Branko\source\repos\PlusUltra\PlusUltra\obj\Debug\PlusUltra.Web.csprojR
 C:\Users\Branko\source\repos\PlusUltra\PlusUltra\obj\Debug\PlusUltra.Web.csproj.CoreCompileInputs.cache
 C:\Users\Branko\source\repos\PlusUltra\PlusUltra\obj\Debug\PlusUltra.dll
 C:\Users\Branko\source\repos\PlusUltra\PlusUltra\obj\Debug\PlusUltra.pdb
+C:\Users\Branko\source\repos\PlusUltra\PlusUltra\bin\PlusUltra.DataAccess.dll
+C:\Users\Branko\source\repos\PlusUltra\PlusUltra\bin\PlusUltraDB.dll
+C:\Users\Branko\source\repos\PlusUltra\PlusUltra\bin\PlusUltra.DataAccess.pdb
+C:\Users\Branko\source\repos\PlusUltra\PlusUltra\bin\PlusUltra.DataAccess.dll.config
+C:\Users\Branko\source\repos\PlusUltra\PlusUltra\bin\PlusUltraDB.pdb
+C:\Users\Branko\source\repos\PlusUltra\PlusUltra\bin\PlusUltraDB.dll.config

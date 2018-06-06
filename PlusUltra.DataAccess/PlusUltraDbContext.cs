@@ -7,6 +7,7 @@ using PlusUltraDB.Entities;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
+
 namespace PlusUltra.DataAccess
 {
     public class PlusUltraDbContext : DbContext
