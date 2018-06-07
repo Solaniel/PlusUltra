@@ -8,17 +8,28 @@ using System.Web;
 using System.Web.Mvc;
 using PlusUltra.DataAccess;
 using PlusUltraDB.Entities;
-
+using PlusUltra.DataAccess.Repositories;
 namespace PlusUltra.Controllers
 {
     public class GamesController : Controller
     {
         private PlusUltraDbContext db = new PlusUltraDbContext();
+        private readonly UnitOfWork uow;
+
+        public GamesController()
+        {
+            uow = new UnitOfWork(new PlusUltraDbContext());
+        }
+
+        public GamesController(PlusUltraDbContext context)
+        {
+            uow = new UnitOfWork(context);
+        }
 
         // GET: Games
         public ActionResult Index()
         {
-            return View(db.Games.ToList());
+            return View(uow.GameRepository.GetAll());
         }
 
         // GET: Games/Details/5
@@ -28,7 +39,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Game game = db.Games.Find(id);
+            Game game = uow.GameRepository.GetById((int)id);
             if (game == null)
             {
                 return HttpNotFound();
@@ -51,8 +62,8 @@ namespace PlusUltra.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Games.Add(game);
-                db.SaveChanges();
+                uow.GameRepository.Create(game);
+                uow.GameRepository.Save(game);
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +77,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Game game = db.Games.Find(id);
+            Game game = uow.GameRepository.GetById((int)id);
             if (game == null)
             {
                 return HttpNotFound();
@@ -83,8 +94,8 @@ namespace PlusUltra.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(game).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.GameRepository.PromoteOrDemote(game);
+                uow.GameRepository.Save(game);
                 return RedirectToAction("Index");
             }
             return View(game);
@@ -97,7 +108,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Game game = db.Games.Find(id);
+            Game game = uow.GameRepository.GetById((int)id);
             if (game == null)
             {
                 return HttpNotFound();
@@ -110,9 +121,9 @@ namespace PlusUltra.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Game game = db.Games.Find(id);
-            db.Games.Remove(game);
-            db.SaveChanges();
+            Game game = uow.GameRepository.GetById((int)id);
+            uow.GameRepository.DeleteByID(id);
+            uow.GameRepository.Save(game);
             return RedirectToAction("Index");
         }
 

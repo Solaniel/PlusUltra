@@ -15,6 +15,8 @@ namespace PlusUltra.Controllers
     {
         private PlusUltraDbContext db = new PlusUltraDbContext();
 
+
+
         // GET: Genres
         public ActionResult Index()
         {
