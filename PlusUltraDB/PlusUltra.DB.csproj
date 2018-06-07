@@ -58,11 +58,5 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PlusUltra\PlusUltra.Web.csproj">
-      <Project>{24979e1a-7dab-4ce5-b520-4213cf00afbf}</Project>
-      <Name>PlusUltra.Web</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

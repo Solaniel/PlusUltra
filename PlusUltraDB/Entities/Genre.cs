@@ -9,14 +9,18 @@ namespace PlusUltraDB.Entities
 {
     public class Genre : BaseEntity
     {
-        [Required]
+        [Required(ErrorMessage = "Genre number is required")]
+        [Display(Name = "Genre number")]
         public int GenreNumber { get; set; }
 
-        [Required, StringLength(50)]
-
+        [Required(ErrorMessage = "Game name must be specified"),
+            StringLength(50)
+            ]
+        [Display(Name = "Game name")]
         public string GName { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
+        [Display(Name = "Description")]
         public string Description { get; set; }
     }
 }

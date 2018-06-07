@@ -10,11 +10,12 @@ namespace PlusUltraDB.Entities
 {
     public class Organization : BaseEntity
     {
-        [Required]
+        [Required(ErrorMessage = "OrganizationId is required")]
+        [Display(Name = "Organization ID")]
         public int OrganizationId { get; set; }
 
-        [Required, StringLength(50)]
-        [Index(IsUnique = true)]
+        [Required(ErrorMessage = "Organization name is required")]
+        [Display(Name = "Organization name")]
         public string Name { get; set; }
     }
 }
