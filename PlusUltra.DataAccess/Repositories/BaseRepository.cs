@@ -42,7 +42,7 @@ namespace PlusUltra.DataAccess.Repositories
             }
 
             Context.Entry(item).State = EntityState.Modified;
-            Context.SaveChanges();
+       
         }
 
         public void PromoteOrDemote(T item)

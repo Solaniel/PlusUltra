@@ -98,7 +98,6 @@ namespace PlusUltra.Controllers
             if (ModelState.IsValid)
             {
                 uow.GenreRepository.PromoteOrDemote(genre);
-                uow.GenreRepository.Save(genre);
                 return RedirectToAction("Index");
             }
             return View(genre);

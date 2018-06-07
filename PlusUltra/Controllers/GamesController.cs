@@ -95,7 +95,6 @@ namespace PlusUltra.Controllers
             if (ModelState.IsValid)
             {
                 uow.GameRepository.PromoteOrDemote(game);
-                uow.GameRepository.Save(game);
                 return RedirectToAction("Index");
             }
             return View(game);
