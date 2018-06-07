@@ -8,17 +8,29 @@ using System.Web;
 using System.Web.Mvc;
 using PlusUltra.DataAccess;
 using PlusUltraDB.Entities;
+using PlusUltra.DataAccess.Repositories;
 
 namespace PlusUltra.Controllers
 {
     public class OrganizationsController : Controller
     {
         private PlusUltraDbContext db = new PlusUltraDbContext();
+        private readonly UnitOfWork uow;
+
+        public OrganizationsController()
+        {
+            uow = new UnitOfWork(new PlusUltraDbContext());
+        }
+
+        public OrganizationsController(PlusUltraDbContext context)
+        {
+            uow = new UnitOfWork(context);
+        }
 
         // GET: Organizations
         public ActionResult Index()
         {
-            return View(db.Organizations.ToList());
+            return View(uow.OrganizationRepository.GetAll());
         }
 
         // GET: Organizations/Details/5
@@ -28,7 +40,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Organization organization = db.Organizations.Find(id);
+            Organization organization = uow.OrganizationRepository.GetById((int)id);
             if (organization == null)
             {
                 return HttpNotFound();
@@ -51,8 +63,8 @@ namespace PlusUltra.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Organizations.Add(organization);
-                db.SaveChanges();
+                uow.OrganizationRepository.Create(organization);
+                uow.OrganizationRepository.Save(organization);
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +78,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Organization organization = db.Organizations.Find(id);
+            Organization organization = uow.OrganizationRepository.GetById((int)id);
             if (organization == null)
             {
                 return HttpNotFound();
@@ -83,8 +95,8 @@ namespace PlusUltra.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(organization).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.OrganizationRepository.PromoteOrDemote(organization);
+                uow.OrganizationRepository.Save(organization);
                 return RedirectToAction("Index");
             }
             return View(organization);
@@ -97,7 +109,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Organization organization = db.Organizations.Find(id);
+            Organization organization = uow.OrganizationRepository.GetById((int)id);
             if (organization == null)
             {
                 return HttpNotFound();
@@ -110,9 +122,9 @@ namespace PlusUltra.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Organization organization = db.Organizations.Find(id);
-            db.Organizations.Remove(organization);
-            db.SaveChanges();
+            Organization organization = uow.OrganizationRepository.GetById((int)id);
+            uow.OrganizationRepository.DeleteByID(id);
+            uow.OrganizationRepository.Save(organization);
             return RedirectToAction("Index");
         }
 

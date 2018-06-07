@@ -45,9 +45,9 @@ namespace PlusUltra.DataAccess.Repositories
             Context.SaveChanges();
         }
 
-        public void PromoteOrDemote(Game game)
+        public void PromoteOrDemote(T item)
         {
-            Context.Entry(game).State = EntityState.Modified;
+            Context.Entry(item).State = EntityState.Modified;
         }
         public bool DeleteByID(int id)
         {

@@ -8,19 +8,31 @@ using System.Web;
 using System.Web.Mvc;
 using PlusUltra.DataAccess;
 using PlusUltraDB.Entities;
+using PlusUltra.DataAccess.Repositories;
 
 namespace PlusUltra.Controllers
 {
     public class GenresController : Controller
     {
         private PlusUltraDbContext db = new PlusUltraDbContext();
+        private readonly UnitOfWork uow;
+
+        public GenresController()
+        {
+            uow = new UnitOfWork(new PlusUltraDbContext());
+        }
+
+        public GenresController(PlusUltraDbContext context)
+        {
+            uow = new UnitOfWork(context);
+        }
 
 
 
         // GET: Genres
         public ActionResult Index()
         {
-            return View(db.Genres.ToList());
+            return View(uow.GenreRepository.GetAll());
         }
 
         // GET: Genres/Details/5
@@ -30,7 +42,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genres.Find(id);
+            Genre genre = uow.GenreRepository.GetById((int)id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -53,8 +65,8 @@ namespace PlusUltra.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Genres.Add(genre);
-                db.SaveChanges();
+                uow.GenreRepository.Create(genre);
+                uow.GenreRepository.Save(genre);
                 return RedirectToAction("Index");
             }
 
@@ -68,7 +80,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genres.Find(id);
+            Genre genre = uow.GenreRepository.GetById((int)id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -85,8 +97,8 @@ namespace PlusUltra.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(genre).State = EntityState.Modified;
-                db.SaveChanges();
+                uow.GenreRepository.PromoteOrDemote(genre);
+                uow.GenreRepository.Save(genre);
                 return RedirectToAction("Index");
             }
             return View(genre);
@@ -99,7 +111,7 @@ namespace PlusUltra.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genres.Find(id);
+            Genre genre = uow.GenreRepository.GetById((int)id);
             if (genre == null)
             {
                 return HttpNotFound();
@@ -112,9 +124,9 @@ namespace PlusUltra.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Genre genre = db.Genres.Find(id);
-            db.Genres.Remove(genre);
-            db.SaveChanges();
+            Genre genre = uow.GenreRepository.GetById((int)id);
+            uow.GenreRepository.DeleteByID(id);
+            uow.GenreRepository.Save(genre);
             return RedirectToAction("Index");
         }
 
