@@ -96,7 +96,6 @@ namespace PlusUltra.Controllers
             if (ModelState.IsValid)
             {
                 uow.OrganizationRepository.PromoteOrDemote(organization);
-                uow.OrganizationRepository.Save(organization);
                 return RedirectToAction("Index");
             }
             return View(organization);
