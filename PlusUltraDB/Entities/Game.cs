@@ -9,13 +9,20 @@ namespace PlusUltraDB.Entities
 {
     public class Game : BaseEntity
     {
-        [Required]
+
+        [Required(ErrorMessage = "OrganizationId is required")]
+        [Display(Name = "Organization ID")]
         public int OrganizationId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Game number is required")]
+        [Display(Name = "Game number")]
         public int GameNumber { get; set; }
 
-        [Required, StringLength(50)]
+        [Required(ErrorMessage = "Game name must be specified"),
+            StringLength(50)]
+        [Display(Name = "Game name")]
         public string GameName { get; set; }
+
     }
 }
+

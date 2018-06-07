@@ -51,6 +51,10 @@
     <Compile Include="Migrations\201805261438255_Initial.Designer.cs">
       <DependentUpon>201805261438255_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806071045151_Deployment.cs" />
+    <Compile Include="Migrations\201806071045151_Deployment.Designer.cs">
+      <DependentUpon>201806071045151_Deployment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyConfig.cs" />
     <Compile Include="PlusUltraDbContext.cs" />
@@ -65,6 +69,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201805261438255_Initial.resx">
       <DependentUpon>201805261438255_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806071045151_Deployment.resx">
+      <DependentUpon>201806071045151_Deployment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
